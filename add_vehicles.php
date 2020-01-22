@@ -6,8 +6,8 @@
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 	<script type="text/javascript">
 		function sureToApprove(id){
-			if(confirm("Are you sure you want to delete this message?")){
-				window.location.href ='delete_msg.php?id='+id;
+			if(confirm("Are you sure you want to delete this car?")){
+				window.location.href ='delete_car.php?id='+id;
 			}
 		}
 	</script>
@@ -16,7 +16,7 @@
 <!-- Header -->
 <div id="header">
 	<div class="shell">
-
+		
 		<?php
 			include 'menu.php';
 		?>
@@ -27,61 +27,58 @@
 
 <div id="container">
 	<div class="shell">
-
+		
 		<div class="small-nav">
 			<a href="index.php">Dashboard</a>
 			<span>&gt;</span>
-			Client Messages
+			Vehicle Management
 		</div>
-
+		
 		<br />
-
+		
 		<div id="main">
 			<div class="cl">&nbsp;</div>
-
+			
 			<div id="content">
-
+				
 				<div class="box">
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2 class="left">Client Messages</h2>
+						<h2 class="left">Our Vehicles</h2>
 						<div class="right">
-							<label>search messages</label>
+							<label>search vehicles</label>
 							<input type="text" class="field small-field" />
 							<input type="submit" class="button" value="search" />
 						</div>
 					</div>
-
+					
 					<div class="table">
 						<table width="100%" border="0" cellspacing="0" cellpadding="0">
 							<tr>
 								<th width="13"><input type="checkbox" class="checkbox" /></th>
-								<th>Message Content</th>
-								<th>Time Send</th>
-								<th>Status</th>
+								<th>Vehicle Make</th>
+								<th>Car Type</th>
+								<th>Hire Price</th>
 								<th width="110" class="ac">Content Control</th>
-								<th>email</th>
 							</tr>
 							<?php
 								include '../includes/config.php';
-								$select = "SELECT * FROM message";
+								$select = "SELECT * FROM cars WHERE status = 'Available'";
 								$result = $conn->query($select);
 								while($row = $result->fetch_assoc()){
 							?>
 							<tr>
 								<td><input type="checkbox" class="checkbox" /></td>
-								<td><h3><a href="#"><?php echo $row['message'] ?></a></h3></td>
-								<td><?php echo $row['time'] ?></td>
-								<td><a href="#"><?php echo $row['status'] ?></a></td>
-								<td><a href="javascript:sureToApprove(<?php echo $row['msg_id'];?>)" class="ico del">Delete</a><a href="#" class="ico edit">Edit</a></td>
-								<td><?php echo $row['client_id'] ?></td>
+								<td><h3><a href="#"><?php echo $row['car_type'] ?></a></h3></td>
+								<td><?php echo $row['car_name'] ?></td>
+								<td><a href="#"><?php echo $row['hire_cost'] ?></a></td>
+								<td><a href="javascript:sureToApprove(<?php echo $row['car_id'];?>)" class="ico del">Delete</a><a href="#" class="ico edit">Edit</a></td>
 							</tr>
 							<?php
 								}
 							?>
 						</table>
-
-
+						
 						<!-- Pagging -->
 						<div class="pagging">
 							<div class="left">Showing 1-12 of 44</div>
@@ -98,48 +95,57 @@
 							</div>
 						</div>
 						<!-- End Pagging -->
-
+						
 					</div>
 					<h2><input type="submit" onclick="window.print()" value="Print Here" /></h2>
-
+					
 				</div>
 				<!-- End Box -->
 
 			</div>
 			<!-- End Content -->
-
+			
 			<!-- Sidebar -->
-			<!--<div id="sidebar">
-      <!--
+			<div id="sidebar">
+				
 				<!-- Box -->
-				<!--
 				<div class="box">
-
+					
 					<!-- Box Head -->
-					<!--
 					<div class="box-head">
 						<h2>Management</h2>
 					</div>
 					<!-- End Box Head-->
-
-<!--
-					  <div class="box-content">
-						<a href="#" class="add-button"><span>Send Messages</span></a>
+					
+					<div class="box-content">
+						<a href="add_cars.php" class="add-button"><span>Add new Vehicles</span></a>
 						<div class="cl">&nbsp;</div>
-
+						
 						<p class="select-all"><input type="checkbox" class="checkbox" /><label>select all</label></p>
 						<p><a href="#">Delete Selected</a></p>
-
-
+						
+						<!-- Sort -->
+						<div class="sort">
+							<label>Sort by</label>
+							<select class="field">
+								<option value="">Car Type</option>
+							</select>
+							<select class="field">
+								<option value="">Car Name</option>
+							</select>
+							<select class="field">
+								<option value="">Hire Price</option>
+							</select>
+						</div>
+						<!-- End Sort -->
+						
 					</div>
 				</div>
 				<!-- End Box -->
-				<!--
 			</div>
 			<!-- End Sidebar -->
-
-
-			<div class="cl">&nbsp;</div>
+			
+			<div class="cl">&nbsp;</div>			
 		</div>
 		<!-- Main -->
 	</div>
@@ -156,6 +162,6 @@
 	</div>
 </div>
 <!-- End Footer -->
-
+	
 </body>
 </html>
